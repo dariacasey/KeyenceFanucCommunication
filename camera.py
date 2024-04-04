@@ -1,25 +1,35 @@
-# Starting point!
-
+# camera.py
 import socket
-import time
 
-def send_coordinates(host, port, coordinates):
-    try:
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.connect((host, port))
-            message = f"{coordinates[0]},{coordinates[1]}"  # Assuming coordinates are (x, y)
-            s.sendall(message.encode())
-            print(f"Sent coordinates: {message}")
-    except Exception as e:
-        print(f"Error sending coordinates: {e}")
+# FUNCTION TO WAKE UP CAMERA? controller?
 
+# FUNCTION TO RECEIVE COORDINATES
 
-if __name__ == "__main__":
-    camera_host = "010.005.060.050"
-    camera_port = 23  # Update with the correct port number
-    while True:
-        # Simulating object detection and getting coordinates
-        # Replace this part with actual object detection logic
-        coordinates = (100, 200)  # Example coordinates (x, y)
-        send_coordinates(camera_host, camera_port, coordinates)
-        time.sleep(1)  # Simulating some delay between detections
+# Replace both
+ip_cam = 'localhost'
+port_cam = 8888
+
+# Fake coordinates for testing
+fake_coordinates = "x=10, y=20, z=30"
+
+# Create a socket object
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# Bind the socket to a local address and port
+server_socket.bind((ip_cam, port_cam))
+
+# Listen for incoming connections
+server_socket.listen(1)
+
+print("Waiting for a connection...")
+
+# Accept a connection
+client_socket, client_address = server_socket.accept()
+print(f"Connected to {client_address}")
+
+# Send coordinates to the client
+client_socket.send(fake_coordinates.encode())
+
+# Close the connection
+client_socket.close()
+server_socket.close()
