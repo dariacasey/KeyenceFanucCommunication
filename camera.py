@@ -1,3 +1,4 @@
+
 # camera.py
 import socket
 
@@ -13,18 +14,21 @@ def getCoords(ip, port):
         response = s.recv(1024)
         print(f"Received: {response.decode()}")
         s.close()  # Close the socket manually
-        return response
+        return response.decode()
     except Exception as e:
         print(f"Error: {e}")
 
 
 # Replace both
 ip_cam = 'localhost'
-port_cam = 8888
+port_cam = 8500
 
 # Fake coordinates for testing
 fake_coordinates = "x=10, y=20, z=30"
-getCoords(ip_cam, port_cam)
+
+# Print the extracted values
+print(f"x: {x}, y: {y}, z: {z}")
+
 
 # Create a socket object
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
