@@ -4,6 +4,19 @@ import socket
 # FUNCTION TO WAKE UP CAMERA? controller?
 
 # FUNCTION TO RECEIVE COORDINATES
+def getCoords(ip, port):
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((ip, port))
+        command = "CPW"  # Command to retrieve coordinates
+        s.sendall(command.encode())
+        response = s.recv(1024)
+        print(f"Received: {response.decode()}")
+        s.close()  # Close the socket manually
+        return response
+    except Exception as e:
+        print(f"Error: {e}")
+
 
 # Replace both
 ip_cam = 'localhost'
@@ -11,6 +24,7 @@ port_cam = 8888
 
 # Fake coordinates for testing
 fake_coordinates = "x=10, y=20, z=30"
+getCoords(ip_cam, port_cam)
 
 # Create a socket object
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
