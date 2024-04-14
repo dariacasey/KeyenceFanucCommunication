@@ -1,9 +1,8 @@
-# arm_network.py
 import socket
 from arm_robot import connect_to_fanuc
 
 
-# Replace both
+# Replace both after testing
 ip_arm = 'localhost'
 port_arm = 8500
 robot = connect_to_fanuc()
@@ -11,7 +10,7 @@ robot = connect_to_fanuc()
 # Create a socket object
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-# Connect to the server (camera)
+# Connect to the camera
 client_socket.connect((ip_arm, port_arm))
 
 # Receive coordinates from the server
