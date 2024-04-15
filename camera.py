@@ -20,27 +20,28 @@ def getCoords(ip, port):
 ip_cam = 'localhost'
 port_cam = 8500
 
-# fake_coordinates = "x=10, y=20, z=30"
-coordinates = getCoords(ip_cam, port_cam)
-
 # Create a socket object
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Bind the socket to a local address and port
-server_socket.bind((ip_cam, port_cam))
+server_socket.bind((ip_cam, 8000))
 
 # Listen for incoming connections
 server_socket.listen(1)
-
 print("Waiting for a connection")
 
-# Accept a connection
-client_socket, client_address = server_socket.accept()
-print(f"Connected to {client_address}")
+while True:
+    # Accept a connection
+    client_socket, client_address = server_socket.accept()
+    print(f"Connected to {client_address}")
+    try:
+        # fake_coordinates = "x=10, y=20, z=30"
+        coordinates = getCoords(ip_cam, port_cam)
 
-# Send coordinates to the client
-client_socket.send(coordinates.encode())
+        # Send coordinates to the client
+        client_socket.send(coordinates.encode())
+    finally:
+        # Close the connection
+        client_socket.close()
 
-# Close the connection
-client_socket.close()
 server_socket.close()
