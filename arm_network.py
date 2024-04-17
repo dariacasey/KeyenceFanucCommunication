@@ -1,5 +1,4 @@
 import socket
-from arm_robot import connect_to_fanuc
 
 
 # Replace both after testing
