@@ -1,6 +1,6 @@
 # Testing!
 import socket
-from arm_robot import connect_to_fanuc
+#from arm_robot import connect_to_fanuc
 
 def getCoords(ip, port):
     try:
@@ -45,7 +45,7 @@ def moveFanuc(coords):
 ip_cam = '172.30.80.149'
 port_cam = 8555
 ip_fanuc = '172.30.68.161'
-port_fanuc = 8002
+port_fanuc = 8555                                                
 
 coordinates = getCoords(ip_cam, port_cam)
 
