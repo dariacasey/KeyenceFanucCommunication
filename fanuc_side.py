@@ -2,8 +2,8 @@ import socket
 import json
 
 # Define host and port to listen on
-host = 'localhost'  # Use 0.0.0.0 to listen on all available interfaces
-port = 50081      # Choose a port number (use a free port)
+host = '172.30.68.161'
+port = 50082
 
 # Create a socket object
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

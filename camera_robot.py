@@ -29,23 +29,37 @@ def sendToFanuc(ip, port, coords):
     except Exception as e:
         print(f"Error: {e}")
 
+def fakeCameraServer(port):
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.bind(('0.0.0.0', port))  # Listen on all available interfaces
+    server_socket.listen(1)  # Listen for one incoming connection
+    print("Server listening on port", port)
+    client_socket, client_address = server_socket.accept()  # Accept incoming connection
+    print("Connection from:", client_address)
+    data = client_socket.recv(1024)
+    print("Received:", data.decode())
+    client_socket.close()
+    server_socket.close()
+
 def moveFanuc(coords):
     try:
-        robot = connect_to_fanuc()
+        #robot = connect_to_fanuc()
         coordinate_vals = dict(item.split("=") for item in coordinates.split(", "))
         x = int(coordinate_vals['x'])
         y = int(coordinate_vals['y'])
         z = int(coordinate_vals['z'])
-        robot.move(x, y, z)
+        #robot.move(x, y, z)
     except Exception as e:
         print(f"Error moving Fanuc robot: {e}")
 
 
 # Replace both after testing
-ip_cam = '172.30.80.149'
+ip_cam = '192.168.1.169'
 port_cam = 8555
-ip_fanuc = '172.30.68.161'
-port_fanuc = 8555                                                
+ip_fanuc = '192.168.1.169'
+port_fanuc = 8555
+
+fakeCameraServer(8555)
 
 coordinates = getCoords(ip_cam, port_cam)
 
